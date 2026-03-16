@@ -3,7 +3,7 @@
 
 <p>
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_the_United_States_Department_of_Transportation.png/1280px-Flag_of_the_United_States_Department_of_Transportation.png" 
-  alt="US Department of Transportation" width="200px"/>
+  alt="US Department of Transportation" width="250px"/>
 </p>
 
 <!-- Header -->
