@@ -2,7 +2,8 @@
 <div align="center">
 
 <p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_the_United_States_Department_of_Transportation.png/1280px-Flag_of_the_United_States_Department_of_Transportation.png" alt="US Department of Transportation"  style="width: 200px; height: 200px; object-fit: cover; object-position: 50%;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_the_United_States_Department_of_Transportation.png/1280px-Flag_of_the_United_States_Department_of_Transportation.png" 
+  alt="US Department of Transportation" width="200px"/>
 </p>
 
 <!-- Header -->
@@ -15,7 +16,6 @@
 ![](https://img.shields.io/badge/MinIO-C72E49?logo=minio&logoColor=fff)
 ![](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
 ![](https://img.shields.io/badge/Terraform-844FBA?logo=terraform&logoColor=fff)
-
 
 </div>
 <!-- Short Summary -->
