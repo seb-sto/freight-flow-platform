@@ -2,7 +2,7 @@
 <div align="center">
 
 <p>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_the_United_States_Department_of_Transportation.png/1280px-Flag_of_the_United_States_Department_of_Transportation.png" alt="US Department of Transportation" width="250px" style="width: 300px; height: 300px; object-fit: cover; object-position: center;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Flag_of_the_United_States_Department_of_Transportation.png/1280px-Flag_of_the_United_States_Department_of_Transportation.png" alt="US Department of Transportation" width="250px" style="width: 240px; height: 240px; object-fit: cover; object-position: center;">
 </p>
 
 <!-- Header -->
