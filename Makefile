@@ -14,3 +14,6 @@ ps:
 
 clean:
 	docker-compose down -v
+
+install:
+	pip install -r requirements.txt
