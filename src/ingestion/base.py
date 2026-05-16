@@ -37,7 +37,7 @@ class IngestorBase(ABC):
         logger.info(f"Schema validation passed") 
 
 
-        minio.path = self.upload_to_bronze(file_path)
+        minio_path = self.upload_to_bronze(file_path)
         logger.info(f"Data uploaded to {minio_path}")
 
         return minio_path
