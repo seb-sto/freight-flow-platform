@@ -1,0 +1,53 @@
+import logging
+import zipfile
+import httpx
+from pathlib import Path
+from src.ingestion.base import IngestorBase
+
+
+logger=logging.getLogger(__name__)
+
+DL_URL = "https://faf.ornl.gov/faf5/data/download_files/FAF5.7.1.zip"
+
+EXPECTED_COLUMNS = {
+    "fr_orig", "dms_orig", "dms_dest", "fr_dest",
+    "dms_mode", "sctg2", "trade_type",
+    "tons_2017", "tons_2024",
+    "value_2017", "value_2024",
+    "tmiles_2017", "tmiles_2024"
+}
+
+DOWNLOAD_DIR = Path("data/raw")
+
+class FAFIngestor(IngestorBase):
+
+    def __init__(self):
+        super().__init__(source_name="faf5")
+
+    def fetch(self) -> str:
+        DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        zip_path = DOWNLOAD_DR / "FAF5.7.1.zip"
+
+        logger.info(f"Downloading FAF5 data from {FAF_URL}")
+        with httpx.Client(follow_redirects=True, timeout=120) as client:
+            response = client.get(FAF_URL)
+            response.raise_for_status()
+            zip_path.write_bytes(response.content)
+        
+        logger.info("Extracting .zip archive")
+        with zipfile.Zipfile(zip_path, "r") as zf:
+            csv_files = [f for f in zf.namelist() if f.endswith(".csv")]
+            if not csv_files:
+                raise FileNotFoundError("No .csv file found in FAF5 .zip archive")
+            zf.extract(csv_files[0], DOWNLOAD_DIR)
+            csv_path = DOWNLOAD_DR / csv_files[0]
+        
+        logger.info(f"Extracted data to {csv_path}")
+        return str(csv_path)
+
+
+    def validate_schema(self, file_path: str) -> bool:
+        pass
+
+    def upload_to_bronze(self, file_path: str) -> str:
+        pass
