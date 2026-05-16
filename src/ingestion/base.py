@@ -30,7 +30,7 @@ class IngestorBase(ABC):
         logger.info(f"Initiating ingestion for {self.source_name}")
 
         file_path = self.fetch()
-        logger.info(f"Fetching data to: {self.file_path}")
+        logger.info(f"Fetching data to: {file_path}")
 
         if not self.validate_schema(file_path):
             raise ValueError(f"Failed to validate schema for {self.source_name}")

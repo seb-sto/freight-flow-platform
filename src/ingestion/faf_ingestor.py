@@ -41,7 +41,7 @@ class FAFIngestor(IngestorBase):
             zip_path.write_bytes(response.content)
         
         logger.info("Extracting .zip archive")
-        with zipfile.Zipfile(zip_path, "r") as zf:
+        with zipfile.ZipFile(zip_path, "r") as zf:
             csv_files = [f for f in zf.namelist() if f.endswith(".csv")]
             if not csv_files:
                 raise FileNotFoundError("No .csv file found in FAF5 .zip archive")
