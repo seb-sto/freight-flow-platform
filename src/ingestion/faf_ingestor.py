@@ -2,6 +2,7 @@ import logging
 import zipfile
 import httpx
 from pathlib import Path
+import pandas as pd
 from src.ingestion.base import IngestorBase
 
 
@@ -47,7 +48,17 @@ class FAFIngestor(IngestorBase):
 
 
     def validate_schema(self, file_path: str) -> bool:
-        pass
+        logger.info(f"Validating schema for {file_path}")
+        df = pd.read_csv(file_path, nrows=0)
+        file_columns = set(df.columns)
+        missing_columns = EXPECTED_COLUMNS - file_columns
+
+        if missing_columns:
+            logger.error(f"Missing columns detected: {missing_columns}")
+            return False
+
+        logger.info("Schema validation passed")
+        return True
 
     def upload_to_bronze(self, file_path: str) -> str:
         pass
