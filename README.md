@@ -209,8 +209,8 @@ freight-flow-platform/
 │       ├── freight_pipeline.py
 │       └── monitoring.py
 ├── grafana/
-│   ├── dashboards/           # JSON dashboard definitions
-│   └── datasources/          # Provisioning configs
+│   ├── dashboards/                   # JSON dashboard definitions
+│   └── datasources/                  # Provisioning configs
 └── .github/workflows/ci.yml
 ```
 
