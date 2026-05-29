@@ -185,25 +185,25 @@ freight-flow-platform/
 ├── README.md
 ├── pyproject.toml
 ├── docs/
-│   ├── architecture.md       # Design decisions and trade-offs
-│   └── data-dictionary.md    # Column definitions for all models
+│   ├── architecture.md               # Design decisions and trade-offs
+│   └── data-dictionary.md            # Column definitions for all models
 ├── src/
 │   ├── ingestion/
-│   │   ├── base.py           # IngestorBase abstract class
-│   │   ├── faf_ingestor.py   # FAF bulk CSV ingestion
-│   │   └── transborder_ingestor.py  # TransBorder monthly ingestion
+│   │   ├── base.py                   # IngestorBase abstract class
+│   │   ├── faf_ingestor.py           # FAF bulk CSV ingestion
+│   │   └── transborder_ingestor.py   # TransBorder monthly ingestion
 │   ├── quality/
-│   │   ├── expectations/     # GE expectation suite JSON files
-│   │   └── checkpoints/      # GE checkpoint configs
+│   │   ├── expectations/             # GE expectation suite JSON files
+│   │   └── checkpoints/              # GE checkpoint configs
 │   └── utils/
-│       ├── s3_client.py      # MinIO/S3 wrapper
-│       ├── manifest.py       # SHA-256 hashing + data lineage
+│       ├── s3_client.py              # MinIO/S3 wrapper
+│       ├── manifest.py               # SHA-256 hashing + data lineage
 ├── dbt/
 │   ├── models/
-│   │   ├── staging/          # stg_* silver models
-│   │   └── marts/            # fct_* and dim_* gold models
-│   ├── seeds/                # Region codes, commodity codes
-│   └── macros/               # Reusable Jinja macros
+│   │   ├── staging/                  # stg_* silver models
+│   │   └── marts/                    # fct_* and dim_* gold models
+│   ├── seeds/                        # Region codes, commodity codes
+│   └── macros/                       # Reusable Jinja macros
 ├── airflow/
 │   └── dags/
 │       ├── freight_pipeline.py
