@@ -1,9 +1,9 @@
 import logging
 import zipfile
-import httpx
 from pathlib import Path
 import pandas as pd
 from datetime import datetime, timezone
+import subprocess
 
 from dotenv import load_dotenv
 from src.ingestion.base import IngestorBase
@@ -35,20 +35,23 @@ class FAFIngestor(IngestorBase):
         zip_path = DOWNLOAD_DIR / "FAF5.7.1.zip"
 
         logger.info(f"Downloading FAF5 data from {DL_URL}")
-        with httpx.Client(follow_redirects=True, timeout=120) as client:
-            response = client.get(DL_URL)
-            response.raise_for_status()
-            zip_path.write_bytes(response.content)
-        
-        logger.info("Extracting .zip archive")
+        subprocess.run([
+            "curl",
+            "-L",           # follow redirects
+            "-o", str(zip_path),  # output path
+            "--retry", "3", # retry up to 3 times
+            DL_URL
+        ], check=True)
+
+        logger.info("Extracting ZIP archive")
         with zipfile.ZipFile(zip_path, "r") as zf:
             csv_files = [f for f in zf.namelist() if f.endswith(".csv")]
             if not csv_files:
-                raise FileNotFoundError("No .csv file found in FAF5 .zip archive")
+                raise FileNotFoundError("No CSV found in FAF5 ZIP archive")
             zf.extract(csv_files[0], DOWNLOAD_DIR)
             csv_path = DOWNLOAD_DIR / csv_files[0]
-        
-        logger.info(f"Extracted data to {csv_path}")
+
+        logger.info(f"Extracted to {csv_path}")
         return str(csv_path)
 
 
@@ -68,6 +71,15 @@ class FAFIngestor(IngestorBase):
     def upload_to_bronze(self, file_path: str) -> str:
         client = get_minio_client()
         bucket = "bronze"
+
+        # Check if bucket exist. If not, create a new one
+        try:
+            client.head_bucket(Bucket=bucket)
+        except client.exceptions.ClientError:
+            logger.info(f"Creating bucket: {bucket}")
+            client.create_bucket(Bucket=bucket)
+
+
         file_hash = compute_sha256(file_path)
 
         # Build unique MinIO path with timestamp
