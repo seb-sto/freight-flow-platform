@@ -1,57 +1,60 @@
 import logging
 import zipfile
-from pathlib import Path
-import pandas as pd
-from datetime import datetime, timezone
 import subprocess
+from pathlib import Path
+from datetime import datetime, timezone
+import pandas as pd
 
 from src.ingestion.base import IngestorBase
+from src.utils.url_builder import build_transborder_urls
 from src.utils.s3_client import get_minio_client
 from src.utils.manifest import compute_sha256
 
-logger=logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
-DL_URL = "https://faf.ornl.gov/faf5/data/download_files/FAF5.7.1.zip"
+DOWNLOAD_DIR = Path("data/raw/transborder")
 
 EXPECTED_COLUMNS = {
-    "fr_orig", "dms_orig", "dms_dest", "fr_dest",
-    "dms_mode", "sctg2", "trade_type",
-    "tons_2017", "tons_2024",
-    "value_2017", "value_2024",
-    "tmiles_2017", "tmiles_2024"
+    "TRDTYPE", "USASTATE", "COMMODITY2",
+    "DISAGMOT", "COUNTRY", "VALUE",
+    "SHIPWT", "MONTH", "YEAR"
 }
 
-DOWNLOAD_DIR = Path("data/raw")
 
-class FAFIngestor(IngestorBase):
+class TransBorderIngestor(IngestorBase):
 
-    def __init__(self):
-        super().__init__(source_name="faf5")
+    def __init__(self, year: int, month: int):
+        super().__init__(source_name="transborder")
+        self.year = year
+        self.month = month
 
     def fetch(self) -> str:
         DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
-        zip_path = DOWNLOAD_DIR / "FAF5.7.1.zip"
+        zip_path = DOWNLOAD_DIR / f"transborder_{self.year}_{self.month:02d}.zip"
 
-        logger.info(f"Downloading FAF5 data from {DL_URL}")
-        subprocess.run([
-            "curl",
-            "-L",           # follow redirects
-            "-o", str(zip_path),  # output path
-            "--retry", "3", # retry up to 3 times
-            DL_URL
-        ], check=True)
+        # Check if file already downloaded manually
+        if zip_path.exists():
+            logger.info(f"Using locally available file: {zip_path}")
+        else:
+            logger.warning(
+                f"File not found locally: {zip_path}\n"
+                f"Please download manually from:\n"
+                f"https://www.bts.gov/topics/transborder-raw-data\n"
+                f"And save to: {zip_path}"
+            )
+            raise FileNotFoundError(f"Manual download required: {zip_path}")
 
+        # Extract dot2 CSV from ZIP
         logger.info("Extracting ZIP archive")
         with zipfile.ZipFile(zip_path, "r") as zf:
-            csv_files = [f for f in zf.namelist() if f.endswith(".csv")]
-            if not csv_files:
-                raise FileNotFoundError("No CSV found in FAF5 ZIP archive")
-            zf.extract(csv_files[0], DOWNLOAD_DIR)
-            csv_path = DOWNLOAD_DIR / csv_files[0]
+            dot2_files = [f for f in zf.namelist() if "dot2" in f.lower() and f.endswith(".csv")]
+            if not dot2_files:
+                raise FileNotFoundError("No dot2 CSV found in TransBorder ZIP archive")
+            zf.extract(dot2_files[0], DOWNLOAD_DIR)
+            csv_path = DOWNLOAD_DIR / dot2_files[0]
 
         logger.info(f"Extracted to {csv_path}")
         return str(csv_path)
-
 
     def validate_schema(self, file_path: str) -> bool:
         logger.info(f"Validating schema for {file_path}")
@@ -80,9 +83,8 @@ class FAFIngestor(IngestorBase):
 
         file_hash = compute_sha256(file_path)
 
-        # Build unique MinIO path with timestamp
-        now = datetime.now(timezone.utc)
-        minio_key = f"faf/{now.year}/{now.month:02d}/FAF5.7.1.csv"
+        # Build unique MinIO path for correct month and year
+        minio_key = f"transborder/{self.year}/{self.month:02d}/transborder_dot2.csv"
 
         # Check if file with same hash already exists
         try:
@@ -103,9 +105,11 @@ class FAFIngestor(IngestorBase):
 
         logger.info("Upload complete")
         return f"s3://{bucket}/{minio_key}"
-    
+
 if __name__ == "__main__":
+    import logging
     logging.basicConfig(level=logging.INFO)
-    
-    ingestor = FAFIngestor()
+
+    now = datetime.now(timezone.utc)
+    ingestor = TransBorderIngestor(year=now.year, month=now.month - 2)
     ingestor.run_ingestion()

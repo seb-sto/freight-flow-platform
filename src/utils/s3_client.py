@@ -1,6 +1,9 @@
 import boto3
 from botocore.client import Config
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def get_minio_client():
     """Returns a boto s3 client pointed at local MinIO instance."""
