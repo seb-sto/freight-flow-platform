@@ -1,6 +1,27 @@
-# Freight Flow Intelligence Platform
+<!-- PROJECT LOGO -->
+<div align="center">
 
-A production-grade data pipeline and analytics platform that ingests U.S. freight flow data, transforms it through a medallion architecture, and surfaces insights via a Grafana dashboard. Built to demonstrate end-to-end data platform ownership.
+<p>
+  <img src="docs/assets/US_Department_of_Transportation_logo.png" 
+  alt="US Department of Transportation" width="250px"/>
+</p>
+
+<!-- Header -->
+<h1 align="center">Freight Flow Intelligence Platform </h1>
+
+![](https://img.shields.io/badge/Apache%20Airflow-017CEE?logo=apacheairflow&logoColor=fff)
+![](https://img.shields.io/badge/dbt-FF694B?logo=dbt&logoColor=fff)
+![](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
+![](https://img.shields.io/badge/GitHub_Actions-2088FF?logo=github-actions&logoColor=white)
+![](https://img.shields.io/badge/Grafana-F46800?logo=grafana&logoColor=white)
+![](https://img.shields.io/badge/MinIO-C72E49?logo=minio&logoColor=fff)
+![](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=fff)
+![](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff)
+
+</div>
+
+
+A production-grade data pipeline and analytics platform that ingests U.S. freight flow data  from the BTS Freight Analysis Framework (FAF5), transforms it through a medallion architecture (bronze → silver → gold), and surfaces corridor-level insights via a Grafana dashboard.
 
 ---
 
