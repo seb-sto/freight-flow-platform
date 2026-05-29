@@ -7,11 +7,13 @@ import pandas as pd
 
 from src.ingestion.base import IngestorBase
 from src.utils.s3_client import get_minio_client
-from src.utils.manifest import compute_sha256
+from src.utils.manifest import append_manifest_entry, compute_sha256
+
 
 logger = logging.getLogger(__name__)
 
 DOWNLOAD_DIR = Path("data/raw/transborder")
+SOURCE_URL="https://www.bts.gov/topics/transborder-raw-data"
 
 EXPECTED_COLUMNS = {
     "TRDTYPE", "USASTATE", "COMMODITY2",
@@ -89,6 +91,15 @@ class TransBorderIngestor(IngestorBase):
         try:
             existing = client.head_object(Bucket=bucket, Key=minio_key)
             if existing["Metadata"].get("sha256") == file_hash:
+                append_manifest_entry(
+                    source=self.source_name,
+                    source_url=SOURCE_URL,
+                    filename="transborder_dot2.csv",
+                    minio_path=f"s3://{bucket}/{minio_key}",
+                    row_count=self._get_row_count(file_path),
+                    sha256=file_hash,
+                    skipped=True
+                )
                 logger.info("File unchanged, skipping upload")
                 return f"s3://{bucket}/{minio_key}"
         except client.exceptions.ClientError:
@@ -101,7 +112,15 @@ class TransBorderIngestor(IngestorBase):
             minio_key,
             ExtraArgs={"Metadata": {"sha256": file_hash}}
         )
-
+        append_manifest_entry(
+            source=self.source_name,
+            source_url=SOURCE_URL,
+            filename="transborder_dot2.csv",
+            minio_path=f"s3://{bucket}/{minio_key}",
+            row_count=self._get_row_count(file_path),
+            sha256=file_hash,
+            skipped=False
+        )
         logger.info("Upload complete")
         return f"s3://{bucket}/{minio_key}"
 

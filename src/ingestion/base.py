@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import logging
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -41,3 +42,7 @@ class IngestorBase(ABC):
         logger.info(f"Data uploaded to {minio_path}")
 
         return minio_path
+
+    def _get_row_count(self, file_path: str) -> int:
+        """Count rows in a CSV file without loading it fully into memory."""
+        return sum(1 for _ in open(file_path)) - 1  # subtract header row

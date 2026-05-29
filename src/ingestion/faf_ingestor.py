@@ -7,7 +7,8 @@ import subprocess
 
 from src.ingestion.base import IngestorBase
 from src.utils.s3_client import get_minio_client
-from src.utils.manifest import compute_sha256
+from src.utils.manifest import append_manifest_entry, compute_sha256
+
 
 logger=logging.getLogger(__name__)
 
@@ -89,6 +90,15 @@ class FAFIngestor(IngestorBase):
             existing = client.head_object(Bucket=bucket, Key=minio_key)
             if existing["Metadata"].get("sha256") == file_hash:
                 logger.info("File unchanged, skipping upload")
+                append_manifest_entry(
+                    source=self.source_name,
+                    source_url=DL_URL,
+                    filename="FAF5.7.1.csv",
+                    minio_path=f"s3://{bucket}/{minio_key}",
+                    row_count=self._get_row_count(file_path),
+                    sha256=file_hash,
+                    skipped=True
+                )
                 return f"s3://{bucket}/{minio_key}"
         except client.exceptions.ClientError:
             pass # File doesn't exist, proceed with upload
@@ -100,7 +110,15 @@ class FAFIngestor(IngestorBase):
             minio_key,
             ExtraArgs={"Metadata": {"sha256": file_hash}}
         )
-
+        append_manifest_entry(
+            source=self.source_name,
+            source_url=DL_URL,
+            filename="FAF5.7.1.csv",
+            minio_path=f"s3://{bucket}/{minio_key}",
+            row_count=self._get_row_count(file_path),
+            sha256=file_hash,
+            skipped=False
+        )
         logger.info("Upload complete")
         return f"s3://{bucket}/{minio_key}"
     
