@@ -6,7 +6,6 @@ from datetime import datetime, timezone
 import pandas as pd
 
 from src.ingestion.base import IngestorBase
-from src.utils.url_builder import build_transborder_urls
 from src.utils.s3_client import get_minio_client
 from src.utils.manifest import compute_sha256
 
