@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_faf_shipments
+    description: "Cleaned and typed FAF5 shipment data. One row per origin-destination-commodity-mode-trade_type combination."
+    columns:
+      - name: shipment_id
+        description: "Surrogate key"
+        tests:
+          - unique
+          - not_null
+      - name: origin_zone
+        tests:
+          - not_null
+      - name: destination_zone
+        tests:
+          - not_null
+      - name: commodity_code
+        tests:
+          - not_null
+      - name: mode_code
+        tests:
+          - not_null

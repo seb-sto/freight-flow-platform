@@ -4,14 +4,19 @@ with source as (
 
 cleaned as (
     select
-        -- Keys
-        fr_orig::integer        as origin_zone,
-        fr_dest::integer        as destination_zone,
-        dms_orig::integer       as dms_origin,
-        dms_dest::integer       as dms_destination,
-        sctg2::integer          as commodity_code,
-        dms_mode::integer       as mode_code,
-        trade_type::integer     as trade_type,
+        -- Foreign keys
+        fr_orig             as foreign_origin,
+        fr_dest             as foreign_destination,
+        fr_inmode           as foreign_inmode,
+        fr_outmode          as foreign_outmode,
+
+        -- Domestic keys
+        dms_orig            as origin_zone,
+        dms_dest            as destination_zone,
+        dms_mode::integer   as mode_code,
+        sctg2::integer      as commodity_code,
+        trade_type::integer as trade_type,
+        dist_band::integer  as dist_band,
 
         -- Actuals: tons (stored as thousands in FAF)
         tons_2017::numeric      as tons_2017,
@@ -55,11 +60,16 @@ final as (
     select
         -- Surrogate key
         {{ dbt_utils.generate_surrogate_key([
+            'foreign_origin',
+            'foreign_destination',
+            'foreign_inmode',
+            'foreign_outmode',
             'origin_zone',
             'destination_zone',
-            'commodity_code',
             'mode_code',
-            'trade_type'
+            'commodity_code',
+            'trade_type',
+            'dist_band'
         ]) }} as shipment_id,
         *
     from cleaned
