@@ -46,9 +46,9 @@ cleaned as (
     from source
     where
         tons_2017::numeric >= 0
-        and fr_orig is not null
-        and fr_dest is not null
-        and sctg2 is not null
+        and dms_orig is not null and dms_orig != ''
+        and dms_dest is not null and dms_dest != ''
+        and sctg2 is not null and sctg2 != ''
 ),
 
 final as (
