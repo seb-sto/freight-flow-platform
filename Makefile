@@ -1,4 +1,4 @@
-.PHONY: up down logs ps clean
+.PHONY: up down logs ps clean install
 
 up:
 	docker-compose up -d
@@ -16,4 +16,4 @@ clean:
 	docker-compose down -v
 
 install:
-    uv sync
+	uv sync

@@ -1,0 +1,113 @@
+[0m15:07:17.545045 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x113cdb2d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x113cf29d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x113cf3090>]}
+
+
+============================== 15:07:17.575340 | 94811fe2-cf1f-41db-a784-75581546eb29 ==============================
+[0m15:07:17.575340 [info ] [MainThread]: Running with dbt=1.11.11
+[0m15:07:17.575846 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_path': 'logs', 'introspect': 'True', 'empty': 'None', 'use_experimental_parser': 'False', 'debug': 'False', 'cache_selected_only': 'False', 'log_format': 'default', 'printer_width': '80', 'fail_fast': 'False', 'partial_parse': 'True', 'target_path': 'None', 'static_parser': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt init freight_flow', 'profiles_dir': '/Users/sebastian/.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'use_colors': 'True', 'log_cache_events': 'False', 'write_json': 'True', 'no_print': 'None', 'warn_error': 'None'}
+[0m15:07:17.623195 [info ] [MainThread]: Creating dbt configuration folder at /Users/sebastian/.dbt
+[0m15:07:17.624928 [debug] [MainThread]: Starter project path: /Users/sebastian/Desktop/Home/Coding/freight-flow-platform/.venv/lib/python3.11/site-packages/dbt/include/starter_project
+[0m15:07:17.630227 [info ] [MainThread]: 
+Your new dbt project "freight_flow" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m15:07:17.630546 [info ] [MainThread]: Setting up your profile.
+[0m15:08:12.244394 [info ] [MainThread]: Profile freight_flow written to /Users/sebastian/.dbt/profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m15:08:12.401826 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 54.92381, "process_in_blocks": "0", "process_kernel_time": 0.573695, "process_mem_max_rss": "146407424", "process_out_blocks": "0", "process_user_time": 2.426173}
+[0m15:08:12.402992 [debug] [MainThread]: Command `dbt init` succeeded at 15:08:12.402780 after 54.93 seconds
+[0m15:08:12.403728 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x113cf3610>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x1137f5ad0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x113ce5090>]}
+[0m15:08:12.404423 [debug] [MainThread]: Flushing usage events
+[0m15:08:12.639329 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:08:21.147490 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x101df6110>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104a130d0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104ce3f10>]}
+
+
+============================== 15:08:21.151069 | 486c337f-b5c8-4809-a4de-6b705472b4b1 ==============================
+[0m15:08:21.151069 [info ] [MainThread]: Running with dbt=1.11.11
+[0m15:08:21.151569 [debug] [MainThread]: running dbt with arguments {'use_colors': 'True', 'invocation_command': 'dbt debug', 'log_cache_events': 'False', 'no_print': 'None', 'indirect_selection': 'eager', 'log_path': 'logs', 'printer_width': '80', 'static_parser': 'True', 'fail_fast': 'False', 'write_json': 'True', 'partial_parse': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'log_format': 'default', 'debug': 'False', 'version_check': 'True', 'profiles_dir': '/Users/sebastian/.dbt', 'cache_selected_only': 'False', 'warn_error': 'None', 'send_anonymous_usage_stats': 'True', 'use_experimental_parser': 'False', 'introspect': 'True', 'empty': 'None', 'quiet': 'False'}
+[0m15:08:21.165322 [info ] [MainThread]: dbt version: 1.11.11
+[0m15:08:21.165729 [info ] [MainThread]: python version: 3.11.15
+[0m15:08:21.166001 [info ] [MainThread]: python path: /Users/sebastian/Desktop/Home/Coding/freight-flow-platform/.venv/bin/python3
+[0m15:08:21.166233 [info ] [MainThread]: os info: macOS-15.7.3-arm64-arm-64bit
+[0m15:08:21.211691 [info ] [MainThread]: Using profiles dir at /Users/sebastian/.dbt
+[0m15:08:21.212144 [info ] [MainThread]: Using profiles.yml file at /Users/sebastian/.dbt/profiles.yml
+[0m15:08:21.212389 [info ] [MainThread]: Using dbt_project.yml file at /Users/sebastian/Desktop/Home/Coding/freight-flow-platform/dbt/dbt_project.yml
+[0m15:08:21.213348 [info ] [MainThread]: adapter type: postgres
+[0m15:08:21.213641 [info ] [MainThread]: adapter version: 1.10.0
+[0m15:08:21.213881 [info ] [MainThread]: Configuration:
+[0m15:08:21.214097 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m15:08:21.214294 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m15:08:21.214489 [info ] [MainThread]: Required dependencies:
+[0m15:08:21.214746 [debug] [MainThread]: Executing "git --help"
+[0m15:08:21.235784 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n           [--super-prefix=<path>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone     Clone a repository into a new directory\n   init      Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add       Add file contents to the index\n   mv        Move or rename a file, a directory, or a symlink\n   restore   Restore working tree files\n   rm        Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect    Use binary search to find the commit that introduced a bug\n   diff      Show changes between commits, commit and working tree, etc\n   grep      Print lines matching a pattern\n   log       Show commit logs\n   show      Show various types of objects\n   status    Show the working tree status\n\ngrow, mark and tweak your common history\n   branch    List, create, or delete branches\n   commit    Record changes to the repository\n   merge     Join two or more development histories together\n   rebase    Reapply commits on top of another base tip\n   reset     Reset current HEAD to the specified state\n   switch    Switch branches\n   tag       Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch     Download objects and refs from another repository\n   pull      Fetch from and integrate with another repository or a local branch\n   push      Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m15:08:21.236479 [debug] [MainThread]: STDERR: "b''"
+[0m15:08:21.236750 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m15:08:21.237001 [info ] [MainThread]: Connection:
+[0m15:08:21.237256 [info ] [MainThread]:   host: localhost
+[0m15:08:21.237469 [info ] [MainThread]:   port: 5432
+[0m15:08:21.237665 [info ] [MainThread]:   user: airflow
+[0m15:08:21.237855 [info ] [MainThread]:   database: freight
+[0m15:08:21.238043 [info ] [MainThread]:   schema: silver
+[0m15:08:21.238230 [info ] [MainThread]:   connect_timeout: 10
+[0m15:08:21.238423 [info ] [MainThread]:   role: None
+[0m15:08:21.238613 [info ] [MainThread]:   search_path: None
+[0m15:08:21.238802 [info ] [MainThread]:   keepalives_idle: 0
+[0m15:08:21.238987 [info ] [MainThread]:   sslmode: None
+[0m15:08:21.239173 [info ] [MainThread]:   sslcert: None
+[0m15:08:21.239357 [info ] [MainThread]:   sslkey: None
+[0m15:08:21.239538 [info ] [MainThread]:   sslrootcert: None
+[0m15:08:21.239727 [info ] [MainThread]:   application_name: dbt
+[0m15:08:21.239913 [info ] [MainThread]:   retries: 1
+[0m15:08:21.240344 [info ] [MainThread]: Registered adapter: postgres=1.10.0
+[0m15:08:21.335755 [debug] [MainThread]: Acquiring new postgres connection 'debug'
+[0m15:08:21.392185 [debug] [MainThread]: Using postgres connection "debug"
+[0m15:08:21.392621 [debug] [MainThread]: On debug: select 1 as id
+[0m15:08:21.392866 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m15:08:21.416416 [debug] [MainThread]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+[0m15:08:21.418935 [debug] [MainThread]: Postgres adapter: Error running SQL: select 1 as id
+[0m15:08:21.419198 [debug] [MainThread]: Postgres adapter: Rolling back transaction.
+[0m15:08:21.419463 [debug] [MainThread]: On debug: No close available on handle
+[0m15:08:21.419733 [info ] [MainThread]:   Connection test: [[31mERROR[0m]
+
+[0m15:08:21.420071 [info ] [MainThread]: [31m2 checks failed:[0m
+[0m15:08:21.420290 [info ] [MainThread]: Project loading failed for the following reason:
+ project path </Users/sebastian/Desktop/Home/Coding/freight-flow-platform/dbt/dbt_project.yml> not found
+
+[0m15:08:21.420503 [info ] [MainThread]: dbt was unable to connect to the specified database.
+The database returned the following error:
+
+  >Database Error
+  connection to server at "localhost" (::1), port 5432 failed: Connection refused
+  	Is the server running on that host and accepting TCP/IP connections?
+  connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+  	Is the server running on that host and accepting TCP/IP connections?
+  
+
+Check your database credentials and try again. For more information, visit:
+https://docs.getdbt.com/docs/configure-your-profile
+
+
+[0m15:08:21.422875 [debug] [MainThread]: Resource report: {"command_name": "debug", "command_success": false, "command_wall_clock_time": 0.331266, "process_in_blocks": "0", "process_kernel_time": 0.254935, "process_mem_max_rss": "127352832", "process_out_blocks": "0", "process_user_time": 1.245182}
+[0m15:08:21.423305 [debug] [MainThread]: Command `dbt debug` failed at 15:08:21.423205 after 0.33 seconds
+[0m15:08:21.423580 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m15:08:21.423867 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104c78250>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104c78d50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x104c6fc50>]}
+[0m15:08:21.424202 [debug] [MainThread]: Flushing usage events
+[0m15:08:21.595772 [debug] [MainThread]: An error was encountered while trying to flush usage events
