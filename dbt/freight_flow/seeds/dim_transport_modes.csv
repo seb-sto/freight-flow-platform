@@ -1,0 +1,8 @@
+mode_code,mode_name,mode_category
+1,Truck,Surface
+2,Rail,Surface
+3,Water,Maritime
+4,Air,Air
+5,Pipeline,Pipeline
+6,Multimodal,Multimodal
+7,Other,Other

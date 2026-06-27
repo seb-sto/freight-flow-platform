@@ -1,0 +1,44 @@
+commodity_code,commodity_name,commodity_category
+1,Live animals and fish,Agriculture
+2,Cereal grains,Agriculture
+3,Other agricultural products,Agriculture
+4,Animal feed and products,Agriculture
+5,Meat and seafood,Food
+6,Milled grain products,Food
+7,Other prepared foodstuffs,Food
+8,Alcoholic beverages,Food
+9,Tobacco products,Food
+10,Building stone,Minerals
+11,Natural sands,Minerals
+12,Gravel and crushed stone,Minerals
+13,Nonmetallic minerals,Minerals
+14,Metallic ores,Minerals
+15,Coal,Energy
+16,Crude petroleum,Energy
+17,Gasoline,Energy
+18,Fuel oils,Energy
+19,Natural gas,Energy
+20,Basic chemicals,Chemicals
+21,Pharmaceutical products,Chemicals
+22,Fertilizers,Chemicals
+23,Chemical products,Chemicals
+24,Plastics and rubber,Chemicals
+25,Logs and wood,Forestry
+26,Wood products,Forestry
+27,Pulp and paper,Forestry
+28,Waste and scrap,Waste
+29,Misc manufactured products,Manufacturing
+30,Textiles and leather,Manufacturing
+31,Nonmetallic mineral products,Manufacturing
+32,Base metals,Manufacturing
+33,Articles of base metal,Manufacturing
+34,Machinery,Manufacturing
+35,Electronics,Manufacturing
+36,Motorized vehicles,Manufacturing
+37,Transport equipment,Manufacturing
+38,Precision instruments,Manufacturing
+39,Furniture,Manufacturing
+40,Miscellaneous products,Manufacturing
+41,Waste and scrap,Waste
+43,Mixed freight,Mixed
+99,Unknown,Unknown

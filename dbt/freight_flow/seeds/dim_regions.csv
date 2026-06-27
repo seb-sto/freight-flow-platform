@@ -1,0 +1,53 @@
+region_code,region_name,state,region_type
+011,Boston MA,MA,Metro
+012,Providence RI,RI,Metro
+019,Rest of New England,ME,State Group
+021,New York NY,NY,Metro
+022,Philadelphia PA,PA,Metro
+023,Buffalo NY,NY,Metro
+029,Rest of NY-NJ-PA,NJ,State Group
+031,Chicago IL,IL,Metro
+032,Detroit MI,MI,Metro
+033,Milwaukee WI,WI,Metro
+039,Rest of IL-IN-MI-OH-WI,OH,State Group
+041,Minneapolis MN,MN,Metro
+042,Kansas City MO,MO,Metro
+049,Rest of MN-MO-ND-SD-NE-KS,KS,State Group
+051,Dallas TX,TX,Metro
+052,Houston TX,TX,Metro
+053,San Antonio TX,TX,Metro
+059,Rest of TX-OK,OK,State Group
+061,Denver CO,CO,Metro
+069,Rest of CO-KS-MT-ND-SD-WY,CO,State Group
+071,Los Angeles CA,CA,Metro
+072,San Francisco CA,CA,Metro
+073,Seattle WA,WA,Metro
+074,Portland OR,OR,Metro
+079,Rest of AK-CA-HI-NV-OR-WA,NV,State Group
+081,Miami FL,FL,Metro
+082,Atlanta GA,GA,Metro
+083,Baltimore MD,MD,Metro
+084,Washington DC,DC,Metro
+085,Charlotte NC,NC,Metro
+086,Nashville TN,TN,Metro
+087,Memphis TN,TN,Metro
+088,Richmond VA,VA,Metro
+089,Rest of DC-DE-FL-GA-MD-NC-SC-VA-WV,WV,State Group
+091,Phoenix AZ,AZ,Metro
+092,Salt Lake City UT,UT,Metro
+099,Rest of AZ-ID-MT-NV-NM-UT,NM,State Group
+101,New Orleans LA,LA,Metro
+102,Louisville KY,KY,Metro
+103,Indianapolis IN,IN,Metro
+104,Columbus OH,OH,Metro
+105,Cincinnati OH,OH,Metro
+106,Cleveland OH,OH,Metro
+107,Pittsburgh PA,PA,Metro
+108,St Louis MO,MO,Metro
+109,Rest of AL-AR-KY-LA-MS-TN,AL,State Group
+111,Honolulu HI,HI,Metro
+119,Rest of HI,HI,State Group
+120,Alaska,AK,State
+209,Canada,CN,International
+309,Mexico,MX,International
+409,Rest of World,RW,International
