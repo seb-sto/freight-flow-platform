@@ -21,3 +21,27 @@ models:
       - name: mode_code
         tests:
           - not_null
+
+  - name: stg_transborder_freight
+    description: "Cleaned TransBorder freight data. Monthly cross-border freight by state, commodity, and mode."
+    columns:
+      - name: transborder_id
+        description: "Surrogate key"
+        tests:
+          - unique
+          - not_null
+      - name: usa_state
+        tests:
+          - not_null
+      - name: commodity_code
+        tests:
+          - not_null
+      - name: mode_code
+        tests:
+          - not_null
+      - name: year
+        tests:
+          - not_null
+      - name: month
+        tests:
+          - not_null
