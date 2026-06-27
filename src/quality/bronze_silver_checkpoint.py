@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 PG_CONNECTION_STRING = (
     f"postgresql+psycopg2://{os.environ['POSTGRES_USER']}:"
-    f"{os.environ['POSTGRES_PASSWORD']}@localhost:5432/"
+    f"{os.environ['POSTGRES_PASSWORD']}@{os.environ['POSTGRES_HOST']}:5432/"
     f"{os.environ['POSTGRES_DB']}"
 )
 

@@ -41,7 +41,7 @@ with DAG(
     # Task 4: Run dbt silver models
     dbt_silver = BashOperator(
         task_id="dbt_silver",
-        bash_command="cd /opt/airflow/dbt/freight_flow && dbt run --select staging",
+        bash_command="cd /opt/airflow/dbt/freight_flow && dbt run --select staging --profiles-dir /opt/airflow/dbt/freight_flow",
     )
 
     # Task 5: Silver→Gold quality gate
@@ -53,7 +53,7 @@ with DAG(
     # Task 6: Run dbt gold models (Week 5)
     dbt_gold = BashOperator(
         task_id="dbt_gold",
-        bash_command="cd /opt/airflow/dbt/freight_flow && dbt run --select marts",
+        bash_command="cd /opt/airflow/dbt/freight_flow && dbt run --select marts --profiles-dir /opt/airflow/dbt/freight_flow",
     )
 
     # Define task dependencies
