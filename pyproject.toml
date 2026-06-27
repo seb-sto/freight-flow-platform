@@ -8,6 +8,7 @@ dependencies = [
     "boto3>=1.42.97",
     "dbt-core>=1.10.22",
     "dbt-postgres>=1.9.1",
+    "great-expectations>=1.8.1",
     "pandas>=2.3.3",
     "psycopg2-binary>=2.9.12",
     "python-dotenv>=1.2.1",
