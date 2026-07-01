@@ -1,53 +1,133 @@
 region_code,region_name,state,region_type
-011,Boston MA,MA,Metro
-012,Providence RI,RI,Metro
-019,Rest of New England,ME,State Group
-021,New York NY,NY,Metro
-022,Philadelphia PA,PA,Metro
-023,Buffalo NY,NY,Metro
-029,Rest of NY-NJ-PA,NJ,State Group
-031,Chicago IL,IL,Metro
-032,Detroit MI,MI,Metro
-033,Milwaukee WI,WI,Metro
-039,Rest of IL-IN-MI-OH-WI,OH,State Group
-041,Minneapolis MN,MN,Metro
-042,Kansas City MO,MO,Metro
-049,Rest of MN-MO-ND-SD-NE-KS,KS,State Group
-051,Dallas TX,TX,Metro
-052,Houston TX,TX,Metro
-053,San Antonio TX,TX,Metro
-059,Rest of TX-OK,OK,State Group
-061,Denver CO,CO,Metro
-069,Rest of CO-KS-MT-ND-SD-WY,CO,State Group
-071,Los Angeles CA,CA,Metro
-072,San Francisco CA,CA,Metro
-073,Seattle WA,WA,Metro
-074,Portland OR,OR,Metro
-079,Rest of AK-CA-HI-NV-OR-WA,NV,State Group
-081,Miami FL,FL,Metro
-082,Atlanta GA,GA,Metro
-083,Baltimore MD,MD,Metro
-084,Washington DC,DC,Metro
-085,Charlotte NC,NC,Metro
-086,Nashville TN,TN,Metro
-087,Memphis TN,TN,Metro
-088,Richmond VA,VA,Metro
-089,Rest of DC-DE-FL-GA-MD-NC-SC-VA-WV,WV,State Group
-091,Phoenix AZ,AZ,Metro
-092,Salt Lake City UT,UT,Metro
-099,Rest of AZ-ID-MT-NV-NM-UT,NM,State Group
-101,New Orleans LA,LA,Metro
-102,Louisville KY,KY,Metro
-103,Indianapolis IN,IN,Metro
-104,Columbus OH,OH,Metro
-105,Cincinnati OH,OH,Metro
-106,Cleveland OH,OH,Metro
-107,Pittsburgh PA,PA,Metro
-108,St Louis MO,MO,Metro
-109,Rest of AL-AR-KY-LA-MS-TN,AL,State Group
-111,Honolulu HI,HI,Metro
-119,Rest of HI,HI,State Group
-120,Alaska,AK,State
-209,Canada,CN,International
-309,Mexico,MX,International
-409,Rest of World,RW,International
+11,Birmingham AL,AL,Metro
+12,Mobile AL,AL,Metro
+19,Rest of AL,AL,State
+20,Alaska,NA,State
+41,Phoenix AZ,AZ,Metro
+42,Tucson AZ,AZ,Metro
+49,Rest of AZ,AZ,State
+50,Arkansas,NA,State
+61,Los Angeles CA,CA,Metro
+62,Sacramento CA,CA,Metro
+63,San Diego CA,CA,Metro
+64,San Francisco CA,CA,Metro
+65,Fresno CA,CA,Metro
+69,Rest of CA,CA,State
+81,Denver CO,CO,Metro
+89,Rest of CO,CO,State
+91,Hartford CT,CT,Metro
+92,New York NY-NJ-CT-PA (CT Part),NY,Metro
+99,Rest of CT,CT,State
+101,Philadelphia PA-NJ-DE-MD (DE Part),PA,Metro
+109,Rest of DE,DE,State
+111,Washington DC-VA-MD-WV (DC Part),DC,Metro
+121,Jacksonville FL-GA  CFS Area (FL Part),FL,Metro
+122,Miami FL,FL,Metro
+123,Orlando FL,FL,Metro
+124,Tampa FL,FL,Metro
+129,Rest of FL,FL,State
+131,Atlanta GA,GA,Metro
+132,Savannah GA,GA,Metro
+139,Rest of GA,GA,State
+151,Honolulu HI,HI,Metro
+159,Rest of HI,HI,State
+160,Idaho,NA,State
+171,Chicago IL-IN-WI (IL Part),IL,Metro
+172,St. Louis MO-IL (IL Part),MO,Metro
+179,Rest of IL,IL,State
+181,Chicago IL-IN-WI (IN Part),IL,Metro
+182,Indianapolis IN,IN,Metro
+183,Fort Wayne IN,IN,Metro
+189,Rest of IN,IN,State
+190,Iowa,NA,State
+201,Kansas City MO-KS (KS Part),MO,Metro
+202,Wichita KS,KS,Metro
+209,Rest of KS,KS,State
+211,Cincinnati OH-KY-IN (KY Part),OH,Metro
+212,Louisville KY-IN (KY Part),KY,Metro
+219,Rest of KY,KY,State
+221,Baton Rouge LA,LA,Metro
+222,Lake Charles-Jennings LA,LA,Metro
+223,New Orleans LA-MS (LA Part),LA,Metro
+229,Rest of LA,LA,State
+230,Maine,NA,State
+241,Baltimore MD,MD,Metro
+242,Washington DC-VA-MD-WV (MD Part),DC,Metro
+249,Rest of MD,MD,State
+251,Boston MA-RI-NH-CT (MA Part),MA,Metro
+259,Rest of MA,MA,State
+261,Detroit MI,MI,Metro
+262,Grand Rapids MI,MI,Metro
+269,Rest of MI,MI,State
+271,Minneapolis-St. Paul MN-WI (MN Part),MN,Metro
+279,Rest of MN,MN,State
+280,Mississippi,NA,State
+291,Kansas City MO-KS (MO Part),MO,Metro
+292,St. Louis MO-IL (MO Part),MO,Metro
+299,Rest of MO,MO,State
+300,Montana,NA,State
+311,Omaha NE-IA (NE Part),NE,Metro
+319,Rest of NE,NE,State
+321,Las Vegas NV-AZ (NV Part),NV,Metro
+329,Rest of NV,NV,State
+331,Boston MA-RI-NH-CT (NH Part),MA,Metro
+339,Rest of NH,NH,State
+341,New York NY-NJ-CT-PA (NJ Part),NY,Metro
+342,Philadelphia PA-NJ-DE-MD (NJ Part),PA,Metro
+350,New Mexico,NA,State
+361,Albany NY  CFS Area,NY,Metro
+362,Buffalo NY  CFS Area,NY,Metro
+363,New York NY-NJ-CT-PA (NY Part),NY,Metro
+364,Rochester NY,NY,Metro
+369,Rest of NY,NY,State
+371,Charlotte NC-SC (NC Part),NC,Metro
+372,Greensboro--Winston-Salem--High Point NC,NC,Metro
+373,Raleigh-Durham NC,NC,Metro
+379,Rest of NC,NC,State
+380,North Dakota,NA,State
+391,Cincinnati OH-KY-IN (OH Part),OH,Metro
+392,Cleveland OH,OH,Metro
+393,Columbus OH,OH,Metro
+394,Dayton OH,OH,Metro
+399,Rest of OH,OH,State
+401,Oklahoma City OK,OK,Metro
+402,Tulsa OK,OK,Metro
+409,Rest of OK,OK,State
+411,Portland OR-WA (OR Part),OR,Metro
+419,Rest of OR,OR,State
+421,Philadelphia PA-NJ-DE-MD (PA Part),PA,Metro
+422,Pittsburgh PA-OH-WV (PA Part),PA,Metro
+423,New York NY-NJ-CT-PA (PA Part),NY,Metro
+429,Rest of PA,PA,State
+441,Boston MA-RI-NH-CT (RI Part),MA,Metro
+451,Charleston SC,SC,Metro
+452,Greenville SC,SC,Metro
+459,Rest of SC,SC,State
+460,South Dakota,NA,State
+471,Memphis TN-MS-AR (TN Part),TN,Metro
+472,Nashville TN,TN,Metro
+473,Knoxville TN,TN,Metro
+479,Rest of TN,TN,State
+481,Austin TX,TX,Metro
+482,Beaumont TX,TX,Metro
+483,Corpus Christi TX,TX,Metro
+484,Dallas-Fort Worth TX-OK (TX Part),TX,Metro
+485,El Paso TX-NM (TX Part),TX,Metro
+486,Houston TX,TX,Metro
+487,Laredo TX,TX,Metro
+488,San Antonio TX,TX,Metro
+489,Rest of TX,TX,State
+491,Salt Lake City UT,UT,Metro
+499,Rest of UT,UT,State
+500,Vermont,NA,State
+511,Richmond VA,VA,Metro
+512,Virginia Beach-Norfolk VA-NC (VA Part),VA,Metro
+513,Washington DC-VA-MD-WV (VA Part),DC,Metro
+519,Rest of VA,VA,State
+531,Seattle WA,WA,Metro
+532,Portland OR-WA (WA Part),OR,Metro
+539,Rest of WA,WA,State
+540,West Virginia,NA,State
+551,Milwaukee WI,WI,Metro
+559,Rest of WI,WI,State
+560,Wyoming,NA,State

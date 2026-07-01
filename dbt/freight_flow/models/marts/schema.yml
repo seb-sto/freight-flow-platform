@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: fct_corridor_flows
+    description: "Freight flows by origin-destination corridor, commodity, and mode with YoY growth."
+    columns:
+      - name: origin_zone
+        tests:
+          - not_null
+      - name: destination_zone
+        tests:
+          - not_null
+      - name: commodity_code
+        tests:
+          - not_null
+      - name: year
+        tests:
+          - not_null
+      - name: total_tons
+        tests:
+          - not_null
+  - name: fct_commodity_trends
+    description: "Time series of tonnage and value by commodity with YoY growth and annual ranking."
+    columns:
+      - name: commodity_code
+        tests:
+          - not_null
+      - name: year
+        tests:
+          - not_null
+      - name: total_tons
+        tests:
+          - not_null
+      - name: tonnage_rank
+        tests:
+          - not_null
+  - name: fct_mode_share
+    description: "Transport mode market share per corridor with truck-to-rail shift detection."
+    columns:
+      - name: origin_zone
+        tests:
+          - not_null
+      - name: destination_zone
+        tests:
+          - not_null
+      - name: mode_code
+        tests:
+          - not_null
+      - name: year
+        tests:
+          - not_null
+      - name: mode_share_pct
+        tests:
+          - not_null
+  - name: fct_trade_corridor_scorecard
+    description: "Top 25 trade corridors ranked by composite score of volume, value, growth and mode diversity."
+    columns:
+      - name: corridor_rank
+        tests:
+          - unique
+          - not_null
+      - name: origin_zone
+        tests:
+          - not_null
+      - name: destination_zone
+        tests:
+          - not_null
+      - name: composite_score
+        tests:
+          - not_null
