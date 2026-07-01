@@ -41,7 +41,7 @@ with DAG(
     # Task 4: Run dbt silver models
     dbt_silver = BashOperator(
         task_id="dbt_silver",
-        bash_command="cd /opt/airflow/dbt/freight_flow && dbt run --select staging --profiles-dir /opt/airflow/dbt/freight_flow",
+        bash_command="cd /opt/airflow/dbt/freight_flow && dbt run --select staging --profiles-dir /opt/airflow/dbt/freight_flow --target docker"
     )
 
     # Task 5: Silver→Gold quality gate
