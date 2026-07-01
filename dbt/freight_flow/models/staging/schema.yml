@@ -45,3 +45,15 @@ models:
       - name: month
         tests:
           - not_null
+  - name: stg_faf_shipments_long
+    description: "FAF shipments unpivoted to long format. One row per shipment-year combination."
+    columns:
+      - name: year
+        tests:
+          - not_null
+      - name: tons
+        tests:
+          - not_null
+      - name: shipment_id
+        tests:
+          - not_null
