@@ -5,9 +5,12 @@ datasources:
     type: postgres
     url: postgres:5432
     database: freight
-    user: ${POSTGRES_USER}
+    # Local development credentials — see .env.example for configuration
+    user: airflow
     secureJsonData:
-      password: ${POSTGRES_PASSWORD}
+      password: airflow
     jsonData:
       sslmode: disable
       schema: gold
+      postgresVersion: 1600
+      timescaledb: false
