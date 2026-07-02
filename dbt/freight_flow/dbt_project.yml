@@ -35,7 +35,12 @@ models:
       +materialized: view
       +schema: silver
       stg_faf_shipments_long:
-        +materialized: table  # override for this model only
+        +materialized: table
     marts:
       +materialized: table
       +schema: gold
+      fct_corridor_flows:
+        +post-hook:
+          - "CREATE INDEX IF NOT EXISTS idx_cf_origin_state ON {{ this }} (origin_state)"
+          - "CREATE INDEX IF NOT EXISTS idx_cf_commodity ON {{ this }} (commodity_category)"
+          - "CREATE INDEX IF NOT EXISTS idx_cf_year ON {{ this }} (year)"
