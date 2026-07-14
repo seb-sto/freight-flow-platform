@@ -73,16 +73,23 @@ class BronzeToRawLoader:
                 logger.info("Temp file cleaned up")
 
 if __name__ == "__main__":
+    import logging
     logging.basicConfig(level=logging.INFO)
 
     # Load FAF data
     BronzeToRawLoader(
-        minio_key="faf/2026/05/FAF5.7.1.csv",
+        minio_key="faf/2026/06/FAF5.7.1.csv",
         table_name="faf_shipments"
     ).run()
 
     # Load TransBorder data
     BronzeToRawLoader(
-        minio_key="transborder/2026/03/transborder_dot2.csv",
+        minio_key="transborder/2026/04/transborder_dot2.csv",
         table_name="transborder_freight"
+    ).run()
+
+    # Load indicators data
+    BronzeToRawLoader(
+        minio_key="indicators/2026/07/supply_chain_indicators.csv",
+        table_name="supply_chain_indicators"
     ).run()

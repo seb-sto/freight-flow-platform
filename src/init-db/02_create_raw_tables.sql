@@ -73,3 +73,11 @@ CREATE TABLE IF NOT EXISTS raw.transborder_freight (
     month           INTEGER,
     year            INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS raw.supply_chain_indicators (
+    mode            TEXT,
+    indicator       TEXT,
+    week_number     INTEGER,
+    week_ending     TEXT,
+    pct_change      NUMERIC
+);

@@ -56,3 +56,15 @@ models:
       - name: shipment_id
         tests:
           - not_null
+  - name: stg_supply_chain_indicators
+    description: "Weekly freight indicators showing % change from baseline. Covers 2020-2022 for rail, maritime, and truck modes."
+    columns:
+      - name: transport_mode
+        tests:
+          - not_null
+      - name: week_ending_date
+        tests:
+          - not_null
+      - name: pct_change_from_baseline
+        tests:
+          - not_null
