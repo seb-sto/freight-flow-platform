@@ -27,50 +27,7 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        Data Sources                                 │
-│   BTS FAF5.7.1 (quarterly)    BTS TransBorder (monthly)             │
-└────────────────┬───────────────────────────┬────────────────────────┘
-                 │                           │
-                 ▼                           ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                     Ingestion Layer (Python)                        │
-│         FAFIngestor                  TransBorderIngestor            │
-│     SHA-256 dedup + manifest tracking + schema validation           │
-└────────────────────────────┬────────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Bronze Layer (MinIO / S3)                        │
-│          s3://bronze/faf/{yyyy}/{mm}/FAF5.7.1.csv                   │
-│          s3://bronze/transborder/{yyyy}/{mm}/transborder_dot2.csv   │
-└────────────────────────────┬────────────────────────────────────────┘
-                             │  Great Expectations (Bronze → Silver)
-                             ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                    Silver Layer (PostgreSQL)                        │
-│   stg_faf_shipments    stg_transborder_freight    dim_regions       │
-│   dim_commodities      dim_transport_modes                          │
-└────────────────────────────┬────────────────────────────────────────┘
-                             │  Great Expectations (Silver → Gold)
-                             ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                     Gold Layer (PostgreSQL)                         │
-│   fct_corridor_flows        fct_commodity_trends                    │
-│   fct_mode_share            fct_trade_corridor_scorecard            │
-└────────────────────────────┬────────────────────────────────────────┘
-                             │
-                             ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                      Grafana Dashboard                              │
-│   Corridor Map · Commodity Trends · Mode Share · Scorecard          │
-└─────────────────────────────────────────────────────────────────────┘
-
-        All orchestrated by Apache Airflow
-        All containers managed by Docker Compose
-        CI/CD via GitHub Actions
-```
+![Freight Flow Intelligence Platform Architecture](docs/assets/architecture.png)
 
 ---
 
