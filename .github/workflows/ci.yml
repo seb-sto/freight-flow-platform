@@ -67,9 +67,7 @@ jobs:
       - name: Run dbt compile
         working-directory: dbt/freight_flow
         env:
-          POSTGRES_HOST: localhost
-          POSTGRES_PORT: 5432
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-        run: uv run dbt compile --profiles-dir . --target docker
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        run: uv run dbt compile --profiles-dir . --target ci
