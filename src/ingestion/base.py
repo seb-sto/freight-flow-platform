@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import logging
-import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +34,7 @@ class IngestorBase(ABC):
 
         if not self.validate_schema(file_path):
             raise ValueError(f"Failed to validate schema for {self.source_name}")
-        logger.info(f"Schema validation passed") 
+        logger.info("Schema validation passed") 
 
 
         minio_path = self.upload_to_bronze(file_path)

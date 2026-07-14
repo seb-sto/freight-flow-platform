@@ -102,7 +102,7 @@ def run_bronze_silver_checkpoint() -> bool:
                 if not expectation_result.success:
                     logger.error(f"Failed: {expectation_result.expectation_config}")
 
-    return result.success
+    return bool(result.success)
 
 
 if __name__ == "__main__":

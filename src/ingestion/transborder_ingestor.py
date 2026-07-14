@@ -1,6 +1,5 @@
 import logging
 import zipfile
-import subprocess
 from pathlib import Path
 from datetime import datetime, timezone
 import pandas as pd
