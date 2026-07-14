@@ -49,6 +49,44 @@
           "tags": [],
           "type": "dashboard"
         }
+      },
+      {
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "PCC52D03280B7034C"
+        },
+        "enable": true,
+        "hide": false,
+        "iconColor": "orange",
+        "name": "Anomalies",
+        "target": {
+          "editorMode": "code",
+          "format": "table",
+          "limit": 100,
+          "matchAny": false,
+          "rawQuery": true,
+          "rawSql": "SELECT\n    obs_date as time,\n    severity as text,\n    'anomaly' as tags\nFROM gold.fct_disruption_indicators\nWHERE is_anomaly = true\nORDER BY obs_date",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "tags": [],
+          "type": "dashboard"
+        }
       }
     ]
   },
@@ -217,7 +255,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Avg YoY Growth %"
+              "options": "Avg YoY Growth"
             },
             "properties": [
               {
@@ -249,6 +287,10 @@
               {
                 "id": "custom.width",
                 "value": 168
+              },
+              {
+                "id": "unit",
+                "value": "percent"
               }
             ]
           },
@@ -373,7 +415,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\n    corridor_rank as \"Rank\",\n    origin_name as \"Origin\",\n    destination_name as \"Destination\",\n    round((total_tons / 1000)::numeric, 2) as \"Total Tons (M)\",\n    round(total_value::numeric, 0) as \"Value ($M)\",\n    round(avg_yoy_growth_pct::numeric, 2) as \"Avg YoY Growth %\",\n    mode_count as \"Modes\",\n    round(composite_score::numeric, 3) as \"Score\"\nFROM gold.fct_trade_corridor_scorecard\nORDER BY corridor_rank",
+          "rawSql": "SELECT\n    corridor_rank as \"Rank\",\n    origin_name as \"Origin\",\n    destination_name as \"Destination\",\n    round((total_tons / 1000)::numeric, 2) as \"Total Tons (M)\",\n    round(total_value::numeric, 0) as \"Value ($M)\",\n    round(avg_yoy_growth_pct::numeric, 2) as \"Avg YoY Growth\",\n    mode_count as \"Modes\",\n    round(composite_score::numeric, 3) as \"Score\"\nFROM gold.fct_trade_corridor_scorecard\nORDER BY corridor_rank",
           "refId": "A",
           "sql": {
             "columns": [
@@ -661,7 +703,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 512
+                "value": 356
               }
             ]
           },
@@ -673,7 +715,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 138
+                "value": 120
               }
             ]
           },
@@ -685,7 +727,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 126
+                "value": 96
               }
             ]
           },
@@ -697,7 +739,7 @@
             "properties": [
               {
                 "id": "custom.width",
-                "value": 139
+                "value": 121
               }
             ]
           },
@@ -716,7 +758,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "YoY Growth %"
+              "options": "YoY Growth"
             },
             "properties": [
               {
@@ -748,6 +790,38 @@
                     }
                   ]
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.width",
+                "value": 103
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Commodity"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 101
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "YoY Growth"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 111
               }
             ]
           }
@@ -755,7 +829,7 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 24,
+        "w": 12,
         "x": 0,
         "y": 31
       },
@@ -783,7 +857,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\n    origin_name || ' → ' || destination_name as corridor,\n    commodity_category,\n    round((sum(total_tons) / 1000)::numeric, 2) as \"Total Tons (M)\",\n    round(sum(total_value)::numeric, 0) as \"Value ($M)\",\n    round(avg(yoy_growth_pct)::numeric, 2) as \"YoY Growth %\"\nFROM gold.fct_corridor_flows\nWHERE year = 2024\nAND origin_zone != destination_zone\nAND origin_state = 'TX'\nAND yoy_growth_pct > -100\nAND yoy_growth_pct < 1000\nGROUP BY origin_name, destination_name, commodity_category\nORDER BY sum(total_tons) DESC\nLIMIT 15",
+          "rawSql": "SELECT\n    origin_name || ' → ' || destination_name as Corridor,\n    commodity_category as \"Commodity\",\n    round((sum(total_tons) / 1000)::numeric, 2) as \"Total Tons (M)\",\n    round(sum(total_value)::numeric, 0) as \"Value ($M)\",\n    round(avg(yoy_growth_pct)::numeric, 2) as \"YoY Growth\"\nFROM gold.fct_corridor_flows\nWHERE year = 2024\nAND origin_zone != destination_zone\nAND origin_state = 'TX'\nAND yoy_growth_pct > -100\nAND yoy_growth_pct < 1000\nGROUP BY origin_name, destination_name, commodity_category\nORDER BY sum(total_tons) DESC\nLIMIT 15",
           "refId": "A",
           "sql": {
             "columns": [
@@ -806,6 +880,132 @@
       ],
       "title": "Top Texas Freight Corridors by Commodity (2024)",
       "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "PCC52D03280B7034C"
+      },
+      "description": "Monthly freight transportation indicators with Z-score anomaly detection. Red markers indicate statistically significant disruptions (Z > 2). COVID impact clearly visible in April 2020. Source: BTS Transportation Services Index",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Truck VMT (000s miles)"
+            },
+            "properties": [
+              {
+                "id": "custom.axisPlacement",
+                "value": "right"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 31
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "maxHeight": 600,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "PCC52D03280B7034C"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT\n    obs_date as time,\n    tsi_freight as \"Freight TSI\",\n    truck_vmt / 1000 as \"Truck VMT (000s miles)\",\n    rail_carloads / 1000 as \"Rail Carloads (000s)\"\nFROM gold.fct_disruption_indicators\nWHERE year >= 2017\nORDER BY obs_date",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Freight Disruption Indicators (2017-Present)",
+      "type": "timeseries"
     }
   ],
   "refresh": "",
@@ -828,6 +1028,6 @@
   "timezone": "browser",
   "title": "Freight Flow Intelligence",
   "uid": "freight-intelligence",
-  "version": 22,
+  "version": 31,
   "weekStart": ""
 }
