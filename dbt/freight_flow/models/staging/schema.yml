@@ -57,14 +57,18 @@ models:
         tests:
           - not_null
   - name: stg_supply_chain_indicators
-    description: "Weekly freight indicators showing % change from baseline. Covers 2020-2022 for rail, maritime, and truck modes."
+    description: "Monthly BTS Transportation Services Index and freight indicators. Covers 2000-present."
     columns:
-      - name: transport_mode
+      - name: obs_date
+        tests:
+          - unique
+          - not_null
+      - name: tsi_freight
         tests:
           - not_null
-      - name: week_ending_date
+      - name: truck_vmt
         tests:
           - not_null
-      - name: pct_change_from_baseline
+      - name: year
         tests:
           - not_null
