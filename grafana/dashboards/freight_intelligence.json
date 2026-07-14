@@ -373,7 +373,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT\n    corridor_rank as \"Rank\",\n    origin_name as \"Origin\",\n    destination_name as \"Destination\",\n    round(total_tons::numeric, 0) as \"Total Tons (000s)\",\n    round(total_value::numeric, 0) as \"Value ($M)\",\n    round(avg_yoy_growth_pct::numeric, 2) as \"Avg YoY Growth %\",\n    mode_count as \"Modes\",\n    round(composite_score::numeric, 3) as \"Score\"\nFROM gold.fct_trade_corridor_scorecard\nORDER BY corridor_rank",
+          "rawSql": "SELECT\n    corridor_rank as \"Rank\",\n    origin_name as \"Origin\",\n    destination_name as \"Destination\",\n    round((total_tons / 1000)::numeric, 2) as \"Total Tons (M)\",\n    round(total_value::numeric, 0) as \"Value ($M)\",\n    round(avg_yoy_growth_pct::numeric, 2) as \"Avg YoY Growth %\",\n    mode_count as \"Modes\",\n    round(composite_score::numeric, 3) as \"Score\"\nFROM gold.fct_trade_corridor_scorecard\nORDER BY corridor_rank",
           "refId": "A",
           "sql": {
             "columns": [
@@ -402,6 +402,7 @@
         "type": "grafana-postgresql-datasource",
         "uid": "PCC52D03280B7034C"
       },
+      "description": "Stacked mode share breakdown for the top 5 U.S. freight corridors by tonnage. Shows the percentage of freight moved by each transport mode. Pipeline and Multimodal dominate Gulf Coast chemical corridors. Source: BTS FAF5.7.1",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -411,7 +412,7 @@
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
-            "axisLabel": "",
+            "axisLabel": "Mode Share %",
             "axisPlacement": "auto",
             "fillOpacity": 70,
             "gradientMode": "none",
@@ -456,6 +457,10 @@
                   "fixedColor": "#2166ac",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
               }
             ]
           },
@@ -471,6 +476,10 @@
                   "fixedColor": "#d1e5f0",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
               }
             ]
           },
@@ -486,6 +495,10 @@
                   "fixedColor": "#4a90e2",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
               }
             ]
           },
@@ -501,6 +514,10 @@
                   "fixedColor": "#92c5de",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
               }
             ]
           },
@@ -516,6 +533,10 @@
                   "fixedColor": "#08306b",
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "unit",
+                "value": "percent"
               }
             ]
           }
@@ -545,7 +566,7 @@
         "text": {},
         "tooltip": {
           "maxHeight": 600,
-          "mode": "single",
+          "mode": "multi",
           "sort": "none"
         },
         "xField": "corridor",
@@ -583,7 +604,7 @@
           }
         }
       ],
-      "title": "Panel Title",
+      "title": "Transport Mode Share by Top Freight Corridors (2024)",
       "transformations": [
         {
           "id": "groupBy",
@@ -619,6 +640,6 @@
   "timezone": "browser",
   "title": "Freight Flow Intelligence",
   "uid": "freight-intelligence",
-  "version": 13,
+  "version": 17,
   "weekStart": ""
 }
