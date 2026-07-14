@@ -2,56 +2,75 @@ with indicators as (
     select * from {{ ref('stg_supply_chain_indicators') }}
 ),
 
--- Z-score anomaly detection per mode/indicator
 with_zscore as (
     select
         *,
-        avg(pct_change_from_baseline) over (
-            partition by transport_mode, indicator_name
-        ) as mean_pct_change,
+        avg(tsi_freight) over (
+            partition by month
+        ) as avg_tsi_by_month,
 
-        stddev(pct_change_from_baseline) over (
-            partition by transport_mode, indicator_name
-        ) as stddev_pct_change
+        stddev(tsi_freight) over (
+            partition by month
+        ) as stddev_tsi_by_month,
+
+        avg(truck_vmt) over (
+            partition by month
+        ) as avg_vmt_by_month,
+
+        stddev(truck_vmt) over (
+            partition by month
+        ) as stddev_vmt_by_month
 
     from indicators
 ),
 
 with_anomaly as (
     select
-        transport_mode,
-        indicator_name,
-        week_number,
-        week_ending_date,
+        obs_date,
         year,
-        pct_change_from_baseline,
-        mean_pct_change,
-        stddev_pct_change,
+        month,
+        tsi_freight,
+        tsi_freight_pct_change,
+        truck_vmt,
+        rail_carloads,
+        petroleum_pipeline,
+        waterborne_freight,
+        inventory_to_sales_ratio,
 
-        -- Z-score: how many standard deviations from the mean
+        -- Z-scores partitioned by month to account for seasonality
         round(
-            (pct_change_from_baseline - mean_pct_change) /
-            nullif(stddev_pct_change, 0)
-        , 2) as z_score,
+            (tsi_freight - avg_tsi_by_month) /
+            nullif(stddev_tsi_by_month, 0)
+        , 2) as tsi_zscore,
 
-        -- Flag anomalies where Z-score exceeds threshold
+        round(
+            (truck_vmt - avg_vmt_by_month) /
+            nullif(stddev_vmt_by_month, 0)
+        , 2) as vmt_zscore,
+
+        -- Anomaly flag on either metric
         case
             when abs(
-                (pct_change_from_baseline - mean_pct_change) /
-                nullif(stddev_pct_change, 0)
-            ) > 2 then true
+                (tsi_freight - avg_tsi_by_month) /
+                nullif(stddev_tsi_by_month, 0)
+            ) > 2
+            or abs(
+                (truck_vmt - avg_vmt_by_month) /
+                nullif(stddev_vmt_by_month, 0)
+            ) > 2
+            then true
             else false
         end as is_anomaly,
 
-        -- Severity classification
+        -- Severity based on worst z-score
         case
-            when abs(
-                (pct_change_from_baseline - mean_pct_change) /
-                nullif(stddev_pct_change, 0)
+            when greatest(
+                abs((tsi_freight - avg_tsi_by_month) / nullif(stddev_tsi_by_month, 0)),
+                abs((truck_vmt - avg_vmt_by_month) / nullif(stddev_vmt_by_month, 0))
             ) > 3 then 'HIGH'
-            when abs(
-                (pct_change_from_baseline - mean_pct_change) /
-                nullif(stddev_pct_change, 0)
+            when greatest(
+                abs((tsi_freight - avg_tsi_by_month) / nullif(stddev_tsi_by_month, 0)),
+                abs((truck_vmt - avg_vmt_by_month) / nullif(stddev_vmt_by_month, 0))
             ) > 2 then 'MEDIUM'
             else 'NORMAL'
         end as severity
@@ -60,4 +79,4 @@ with_anomaly as (
 )
 
 select * from with_anomaly
-order by week_ending_date, transport_mode
+order by obs_date

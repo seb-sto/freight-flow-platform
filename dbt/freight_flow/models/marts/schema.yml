@@ -68,3 +68,19 @@ models:
       - name: composite_score
         tests:
           - not_null
+  - name: fct_disruption_indicators
+    description: "Monthly freight indicators with Z-score anomaly detection. Flags disruption periods based on TSI and truck VMT deviations."
+    columns:
+      - name: obs_date
+        tests:
+          - unique
+          - not_null
+      - name: tsi_freight
+        tests:
+          - not_null
+      - name: severity
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['NORMAL', 'MEDIUM', 'HIGH']
