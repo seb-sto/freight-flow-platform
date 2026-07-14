@@ -56,16 +56,20 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Create schemas
+  - name: Create schemas
         run: |
-          PGPASSWORD=airflow psql -h localhost -U airflow -d freight -c "CREATE SCHEMA IF NOT EXISTS raw; CREATE SCHEMA IF NOT EXISTS silver; CREATE SCHEMA IF NOT EXISTS gold;"
+          PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql -h localhost -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} -c "CREATE SCHEMA IF NOT EXISTS raw; CREATE SCHEMA IF NOT EXISTS silver; CREATE SCHEMA IF NOT EXISTS gold;"
+
+      - name: Install dbt packages
+        working-directory: dbt/freight_flow
+        run: uv run dbt deps --profiles-dir . --target docker
 
       - name: Run dbt compile
         working-directory: dbt/freight_flow
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
-          POSTGRES_DB: freight
-          POSTGRES_USER: airflow
-          POSTGRES_PASSWORD: airflow
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: uv run dbt compile --profiles-dir . --target docker
