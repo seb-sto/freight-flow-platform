@@ -10,12 +10,12 @@ from src.utils.manifest import compute_sha256, append_manifest_entry
 load_dotenv()
 logger = logging.getLogger(__name__)
 
-INDICATORS_URL = "https://data.bts.gov/api/views/h7pv-kjj5/rows.csv?accessType=DOWNLOAD"
+INDICATORS_URL = "https://data.bts.gov/api/views/bw6n-ddqk/rows.csv?accessType=DOWNLOAD"
 DOWNLOAD_DIR = Path("data/raw/indicators")
 
 EXPECTED_COLUMNS = {
-    "Mode", "Indicator", "Week Number",
-    "Week Ending", "Week % Change from Baseline"
+    "OBS_DATE", "TSI_Freight", "VMT",
+    "RAIL_FRT_CARLOADS", "PETROLEUM", "WATERBORNE", "INV_TO_SALES"
 }
 
 
