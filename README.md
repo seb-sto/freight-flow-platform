@@ -36,8 +36,8 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 
 
 ### Grafana Dashboard
-![Dashboard Panels 1 & 2](docs/assets/Grafana_screenshot_1.png)
-![Dashboard Panels 3, 4 & 5](docs/assets/Grafana_screenshot_2.png)
+![Dashboard Panels 1 & 2](docs/assets/grafana_screenshot_1.png)
+![Dashboard Panels 3, 4 & 5](docs/assets/grafana_screenshot_2.png)
 
 ---
 
