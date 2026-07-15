@@ -29,6 +29,16 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 
 ![Freight Flow Intelligence Platform Architecture](docs/assets/architecture.png)
 
+## Screenshots
+
+### Airflow Pipeline
+![Airflow DAG](docs/assets/Grafana_screenshot_1.png)
+
+
+### Grafana Dashboard
+![Dashboard Panels 1 & 2](docs/assets/Grafana_screenshot_1.png)
+![Dashboard Panels 3, 4 & 5](docs/assets/Grafana_screenshot_2.png)
+
 ---
 
 ## Quickstart
