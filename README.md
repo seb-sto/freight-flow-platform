@@ -32,12 +32,12 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 ## Screenshots
 
 ### Airflow Pipeline
-![Airflow DAG](docs/assets/airflow_screenshot.png)
+![Airflow DAG](docs/assets/airflow_dag.png)
 
 
 ### Grafana Dashboard
-![Dashboard Panels 1 & 2](docs/assets/grafana_screenshot_1.png)
-![Dashboard Panels 3, 4 & 5](docs/assets/grafana_screenshot_2.png)
+![Dashboard Panels 1 & 2](docs/assets/grafana_upper_panels.png)
+![Dashboard Panels 3, 4 & 5](docs/assets/grafana_lower_panels.png)
 
 ---
 
