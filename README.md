@@ -32,7 +32,7 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 ## Screenshots
 
 ### Airflow Pipeline
-![Airflow DAG](docs/assets/Grafana_screenshot_1.png)
+![Airflow DAG](docs/assets/airflow_screenshot.png)
 
 
 ### Grafana Dashboard
