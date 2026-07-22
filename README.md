@@ -9,6 +9,7 @@
 <!-- Header -->
 <h1 align="center">Freight Flow Intelligence Platform </h1>
 
+![CI](https://github.com/seb-sto/freight-flow-platform/actions/workflows/ci.yml/badge.svg)
 ![](https://img.shields.io/badge/Apache%20Airflow-017CEE?logo=apacheairflow&logoColor=fff)
 ![](https://img.shields.io/badge/dbt-FF694B?logo=dbt&logoColor=fff)
 ![](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
@@ -36,8 +37,8 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 
 
 ### Grafana Dashboard
-![Dashboard Panels 1 & 2](docs/assets/grafana_upper_panels.png)
-![Dashboard Panels 3, 4 & 5](docs/assets/grafana_lower_panels.png)
+![Corridor scorecard and commodity trends](docs/assets/grafana_upper_panels.png)
+![Mode share and disruption indicators](docs/assets/grafana_lower_panels.png)
 
 ---
 
@@ -81,20 +82,19 @@ make install
 
 ### 4. Run ingestion
 
-```bash
 # FAF5 (downloads automatically)
 python -m src.ingestion.faf_ingestor
 
 # TransBorder (requires manual download — see Data Sources below)
 python -m src.ingestion.transborder_ingestor
-```
+
+# Supply Chain Indicators (downloads automatically)
+python -m src.ingestion.indicators
 
 ### 5. Run dbt transforms
 
-```bash
-cd dbt
-dbt build
-```
+cd dbt/freight_flow
+dbt build --target dev
 
 ### 6. Open Grafana
 
@@ -104,18 +104,18 @@ Navigate to http://localhost:3000 — the dashboard auto-loads via provisioning.
 
 ## Tech Stack
 
-| Layer         | Technology              | Version    |
-|---------------|-------------------------|------------|
-| Orchestration | Apache Airflow          | 2.9+       |
-| Object Storage| MinIO                   | Latest     |
-| Database      | PostgreSQL              | 16         |
-| Transforms    | dbt-core + dbt-postgres | 1.8+       |
-| Data Quality  | Great Expectations      | 0.18+      |
-| Ingestion     | Python + boto3 + pandas | 3.11       |
-| Monitoring    | Grafana                 | 11+        |
-| Containers    | Docker Compose          | v2         |
-| CI/CD         | GitHub Actions          | —          |
-| Package Mgmt  | uv                      | Latest     |
+| Layer         | Technology              | Version                       |
+|---------------|-------------------------|-------------------------------|
+| Orchestration | Apache Airflow          | 2.9.0                         |
+| Object Storage| MinIO                   | RELEASE.2025-09-07T16-13-09Z  |
+| Database      | PostgreSQL              | 16.14                         |
+| Transforms    | dbt-core + dbt-postgres | 1.11.11                       |
+| Data Quality  | Great Expectations      | 1.18.2                        |
+| Ingestion     | Python + boto3 + pandas | 3.11.15                       |
+| Monitoring    | Grafana                 | 11.0.0                        |
+| Containers    | Docker Compose          | v5.1.3                        |
+| CI/CD         | GitHub Actions          | —                             |
+| Package Mgmt  | uv                      | 0.11.14                       |
 
 ---
 
@@ -140,6 +140,12 @@ Navigate to http://localhost:3000 — the dashboard auto-loads via provisioning.
 > ```
 > Example: `transborder_2026_03.zip` for March 2026.
 
+### BTS Transportation Services Index (TSI)
+- **URL:** https://data.bts.gov/Research-and-Statistics/Transportation-Services-Index-and-Seasonally-Adjus/bw6n-ddqk
+- **Coverage:** Monthly freight TSI, truck VMT, rail carloads, pipeline throughput since 2000
+- **Update cadence:** Monthly
+- **Download:** Automated via ingestion pipeline
+
 ---
 
 ## Repository Structure
@@ -147,38 +153,79 @@ Navigate to http://localhost:3000 — the dashboard auto-loads via provisioning.
 ```
 freight-flow-platform/
 ├── docker-compose.yml
+├── Dockerfile
 ├── .env.example
 ├── Makefile
 ├── README.md
 ├── pyproject.toml
-├── docs/
-│   ├── architecture.md               # Design decisions and trade-offs
-│   └── data-dictionary.md            # Column definitions for all models
+├── uv.lock
+├── .gitignore
+├── init-db/
+│   ├── 01_create_schemas.sql          # raw, silver, gold schemas
+│   └── 02_create_raw_tables.sql       # raw.faf_shipments, raw.transborder_freight, raw.supply_chain_indicators
 ├── src/
+│   ├── __init__.py
 │   ├── ingestion/
-│   │   ├── base.py                   # IngestorBase abstract class
-│   │   ├── faf_ingestor.py           # FAF bulk CSV ingestion
-│   │   └── transborder_ingestor.py   # TransBorder monthly ingestion
+│   │   ├── __init__.py
+│   │   ├── base.py                    # IngestorBase abstract class
+│   │   ├── faf_ingestor.py            # FAF bulk CSV ingestion
+│   │   ├── transborder_ingestor.py    # TransBorder monthly ingestion (manual download)
+│   │   ├── indicators.py              # BTS TSI ingestion
+│   │   └── bronze_loader.py           # MinIO → Postgres raw schema loader
 │   ├── quality/
-│   │   ├── expectations/             # GE expectation suite JSON files
-│   │   └── checkpoints/              # GE checkpoint configs
+│   │   ├── __init__.py
+│   │   ├── bronze_silver_checkpoint.py  # GE gate: raw → silver
+│   │   └── silver_gold_checkpoint.py    # GE gate: silver → gold
 │   └── utils/
-│       ├── s3_client.py              # MinIO/S3 wrapper
-│       ├── manifest.py               # SHA-256 hashing + data lineage
+│       ├── __init__.py
+│       ├── s3_client.py               # MinIO/S3 client wrapper
+│       └── manifest.py                # SHA-256 hashing + manifest.json tracking
 ├── dbt/
-│   ├── models/
-│   │   ├── staging/                  # stg_* silver models
-│   │   └── marts/                    # fct_* and dim_* gold models
-│   ├── seeds/                        # Region codes, commodity codes
-│   └── macros/                       # Reusable Jinja macros
+│   └── freight_flow/
+│       ├── dbt_project.yml
+│       ├── profiles.yml
+│       ├── packages.yml
+│       ├── models/
+│       │   ├── staging/
+│       │   │   ├── stg_faf_shipments.sql
+│       │   │   ├── stg_faf_shipments_long.sql
+│       │   │   ├── stg_transborder_freight.sql
+│       │   │   ├── stg_supply_chain_indicators.sql
+│       │   │   └── schema.yml
+│       │   └── marts/
+│       │       ├── fct_corridor_flows.sql
+│       │       ├── fct_commodity_trends.sql
+│       │       ├── fct_mode_share.sql
+│       │       ├── fct_trade_corridor_scorecard.sql
+│       │       ├── fct_disruption_indicators.sql
+│       │       └── schema.yml
+│       ├── seeds/
+│       │   ├── dim_regions.csv
+│       │   ├── dim_commodities.csv
+│       │   └── dim_transport_modes.csv
+│       └── macros/
+│           └── generate_schema_name.sql
 ├── airflow/
 │   └── dags/
-│       ├── freight_pipeline.py
-│       └── monitoring.py
+│       └── freight_pipeline.py        # ingest → GE gate → dbt silver → GE gate → dbt gold
 ├── grafana/
-│   ├── dashboards/                   # JSON dashboard definitions
-│   └── datasources/                  # Provisioning configs
-└── .github/workflows/ci.yml
+│   ├── dashboards/
+│   │   ├── dashboard.yml              # provisioning config
+│   │   └── freight_intelligence.json  # 5-panel dashboard
+│   └── datasources/
+│       └── postgres.yml               # Postgres connection provisioning
+├── docs/
+│   ├── architecture.md                # design decisions and trade-offs
+│   ├── data-dictionary.md             # column definitions for all gold models
+│   └── assets/
+│       ├── architecture.png
+│       ├── airflow_dag.png
+│       ├── grafana_upper_panels.png
+│       ├── grafana_lower_panels.png
+│       └── US_Department_of_Transportation_logo.png
+└── .github/
+    └── workflows/
+        └── ci.yml                     # ruff, mypy, dbt compile
 ```
 
 ---
@@ -191,6 +238,9 @@ freight-flow-platform/
 
 - **Real business data can be messy** — the TransBorder URL naming inconsistency (`Feb2025.zip` vs `February2025.zip`) is a real-world example of why defensive coding and fallback strategies are essential.
 
+- **Source data can silently fail to be useful** — the initial BTS Supply Chain Indicators API endpoint returned a well-formed CSV that passed schema validation but contained all-zero values for every metric. The pipeline "succeeded" while providing zero analytical value. This led to switching to the BTS Transportation Services Index (TSI) dataset, which required rebuilding the ingestor, silver model, and gold model — but produced real, meaningful signal (the April 2020 COVID disruption is clearly visible with a -3.89 Z-score on truck VMT). The lesson: schema validation alone doesn't guarantee data quality — value distribution checks matter just as much.
+
 - **Bot protection is a real engineering constraint** — the Akamai WAF on BTS blocking automated downloads is a legitimate production scenario. Designing around it (manual download + local processing) is the right call over attempting to circumvent it.
 
 - **Docker Compose ordering matters** — Airflow depends on Postgres being healthy, not just running. The `condition: service_healthy` dependency combined with Postgres healthchecks prevents a whole class of startup race conditions.
+
