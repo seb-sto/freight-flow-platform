@@ -32,13 +32,16 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 
 ## Screenshots
 
-### Airflow Pipeline
+### Airflow PipelineS
 ![Airflow DAG](docs/assets/airflow_dag.png)
+*Figure 1: Airflow DAG*
 
 
 ### Grafana Dashboard
 ![Corridor scorecard and commodity trends](docs/assets/grafana_upper_panels.png)
+*Figure 2: Corridor scorecard and commodity trends*
 ![Mode share and disruption indicators](docs/assets/grafana_lower_panels.png)
+*Figure 3: Mode share and disruption indicators*
 
 ---
 
