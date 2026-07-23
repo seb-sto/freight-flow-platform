@@ -29,6 +29,7 @@ A production-grade data pipeline and analytics platform that ingests U.S. freigh
 ## Architecture
 
 ![Freight Flow Intelligence Platform Architecture](docs/assets/architecture.png)
+<a href=".docs/ARCHITECTURE.md">Architecture</a> 
 
 ## Screenshots
 
